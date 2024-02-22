@@ -7,31 +7,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// Album represents a simple data structure
-type Album struct {
-	ID     string  `json:"id"`
-	Title  string  `json:"title"`
-	Artist string  `json:"artist"`
-	Price  float64 `json:"price"`
-}
-
 type Database struct {
 	Name string `json:"name"`
 }
 
 type Tenant struct {
 	Name string `json:"name"`
-}
-
-// Sample albums slice (simulates a database)
-var albums = []Album{
-	{ID: "1", Title: "Blue Train", Artist: "John Coltrane", Price: 56.99},
-	{ID: "2", Title: "Kind of Blue", Artist: "Miles Davis", Price: 49.99},
-}
-
-// Get all albums
-func getAlbums(c *gin.Context) {
-	c.IndentedJSON(http.StatusOK, albums)
 }
 
 func heartbeat(c *gin.Context) {
@@ -42,19 +23,6 @@ func heartbeat(c *gin.Context) {
 
 func version(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, gin.H{"version": "1.0.0"})
-}
-
-// Get album by ID
-func getAlbumByID(c *gin.Context) {
-	id := c.Param("id")
-
-	for _, a := range albums {
-		if a.ID == id {
-			c.IndentedJSON(http.StatusOK, a)
-			return
-		}
-	}
-	c.IndentedJSON(http.StatusNotFound, gin.H{"message": "album not found"})
 }
 
 func createTeanant(c *gin.Context) {
